@@ -155,14 +155,9 @@ The application uses a pre-trained machine learning model (`insulin_predictor_fi
 
 **Medical Disclaimer**: This application is for educational and informational purposes only. Always consult with your healthcare provider before making any changes to your insulin regimen. This tool should not replace professional medical advice, diagnosis, or treatment.
 
-
-
-
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-**Built with ❤️ for the Type-1 Diabetes community**
