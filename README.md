@@ -153,15 +153,11 @@ The application uses a pre-trained machine learning model (`insulin_predictor_fi
 
 ## Important Disclaimer
 
-⚠️ **Medical Disclaimer**: This application is for educational and informational purposes only. Always consult with your healthcare provider before making any changes to your insulin regimen. This tool should not replace professional medical advice, diagnosis, or treatment.
+**Medical Disclaimer**: This application is for educational and informational purposes only. Always consult with your healthcare provider before making any changes to your insulin regimen. This tool should not replace professional medical advice, diagnosis, or treatment.
 
-## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
 
-## Contributors
 
-- **[Your Name]** - *Initial work and development*
 
 ## License
 
