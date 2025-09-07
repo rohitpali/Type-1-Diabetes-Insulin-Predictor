@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block title %}Predict Dose{% endblock %}
+{% block body_class %}predict-page{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row g-4">
+    <div class="col-lg-6">
+      <div class="card glass-card p-4">
+        <h2 class="h5 mb-3"><i class="fa-solid fa-syringe me-2"></i>Insulin Dose Prediction</h2>
+        <form id="predict-form" method="post" onsubmit="showLoading()">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Glucose Level (mg/dL)</label>
+              <input class="form-control" name="glucose_level" type="number" min="40" max="500" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Carb Rate (g/hr)</label>
+              <input class="form-control" name="carb_rate_g_per_hr" type="number" step="0.1" min="0" value="0">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">sIOB (U)</label>
+              <input class="form-control" name="sIOB" type="number" step="0.1" min="0" value="0">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">dIOB (U)</label>
+              <input class="form-control" name="dIOB" type="number" step="0.1" min="0" value="0">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Weight (kg)</label>
+              <input class="form-control" name="weight_kg" type="number" step="0.1" min="10" max="250" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Age</label>
+              <input class="form-control" name="age" type="number" min="1" max="120" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">ICR</label>
+              <input class="form-control" name="median_ICR" type="number" step="0.1" min="1" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">ISF</label>
+              <input class="form-control" name="median_ISF" type="number" step="0.1" min="1" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Meal Type</label>
+              <select class="form-select" name="meal_type" required>
+                <option>Breakfast</option><option>Lunch</option><option>Snack</option><option>Dinner</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn-primary mt-3"><i class="fa-solid fa-magic-wand-sparkles me-2"></i>Predict</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      {% if prediction is not none %}
+      <div class="card glass-card p-4 {% if safety and safety['safety_flag'] %}border-danger{% else %}border-success{% endif %}">
+        <h2 class="h6 mb-3">Result</h2>
+        <div class="display-6 mb-2">{{ "%.2f"|format(prediction) }} <span class="fs-5">units</span></div>
+        {% if safety %}
+          <div class="small mb-2">
+            <span class="badge {% if safety['safety_flag'] %}bg-danger{% else %}bg-success{% endif %}">
+              {% if safety['safety_flag'] %}Review safety flags{% else %}Within basic safety checks{% endif %}
+            </span>
+          </div>
+          <ul class="small list-unstyled">
+            <li>Per-kg check: {{ '⚠️' if safety['too_high_per_kg'] else '✅' }}</li>
+            <li>Time gap: {{ '⚠️' if safety['low_time_gap'] else '✅' }}</li>
+            <li>Absolute cap: {{ '⚠️' if safety['excessive_absolute'] else '✅' }}</li>
+            <li>IOB exceeds: {{ '⚠️' if safety['iob_exceeds'] else '✅' }}</li>
+          </ul>
+        {% endif %}
+        <a href="{{ url_for('instructions') }}" class="btn btn-outline-secondary btn-sm mt-2">Back to Instructions</a>
+      </div>
+      {% else %}
+      <div class="card glass-card p-4">
+        <p class="text-muted m-0">Enter details and click <strong>Predict</strong> to see your dose here.</p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  function showLoading(){ document.getElementById('loading-overlay').classList.remove('d-none'); }
+</script>
+{% endblock %}
+    <div class="container d-flex align-items-center justify-content-center" style="min-height:70vh;">
+        <div class="card glass-card p-5 text-center">
+        <h1 class="display-6 text-primary mb-3">Welcome to Type-1 Diabetes Insulin Predictor</h1>
+        <p class="text-muted mb-4">Follow the chatbot (bottom-right) for a step-by-step guide.</p>
+        <div>
+            <a href="{{ url_for('signup') }}" class="btn btn-success btn-lg me-2"><i class="fa-solid fa-user-plus me-2"></i>Sign Up</a>
+            <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg"><i class="fa-solid fa-right-to-bracket me-2"></i>Login</a>
+        </div>
+        </div>
+    </div>

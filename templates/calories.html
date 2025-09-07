@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block title %}{{ meal_type }} Calories{% endblock %}
+{% block body_class %}calories-page{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="card glass-card p-4">
+    <h2 class="h4 mb-3 text-primary">Add your {{ meal_type }} items</h2>
+    <form method="post" id="calorie-form">
+      <div id="meal-items">
+        <!-- First meal item row -->
+        <div class="row g-3 mb-3 meal-item">
+          <div class="col-md-8">
+            <select name="item[]" class="form-select meal-item-select" required>
+              <option value="">-- Select {{ meal_type }} item --</option>
+              {% for item, cal in items.items() %}
+              <option value="{{ item }}">{{ item }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-4">
+            <input type="number" name="quantity[]" class="form-control meal-item-qty" min="1" value="1" required>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-sm btn-outline-success mb-3" onclick="addMealItem()">➕ Add More</button>
+      <hr>
+      <div class="mb-3">
+        <strong>Total Calories: <span id="total-calories">0</span> kcal</strong>
+      </div>
+      <button type="submit" class="btn btn-primary">Calculate Calories</button>
+    </form>
+  </div>
+</div>
+
+<script>
+// Convert Flask dict to JS object
+const itemsCalories = JSON.parse('{{ items | tojson | safe }}');
+
+// Function to add new meal item row
+function addMealItem() {
+  const container = document.getElementById('meal-items');
+  const newRow = document.createElement('div');
+  newRow.classList.add('row', 'g-3', 'mb-3', 'meal-item');
+
+  let options = '<option value="">-- Select {{ meal_type }} item --</option>';
+  for (const item in itemsCalories) {
+    options += `<option value="${item}">${item}</option>`;
+  }
+
+  newRow.innerHTML = `
+    <div class="col-md-8">
+      <select name="item[]" class="form-select meal-item-select" required>
+        ${options}
+      </select>
+    </div>
+    <div class="col-md-4">
+      <input type="number" name="quantity[]" class="form-control meal-item-qty" min="1" value="1" required>
+    </div>
+  `;
+
+  container.appendChild(newRow);
+  attachChangeEvents();
+}
+
+// Calculate total calories dynamically
+function calculateTotalCalories() {
+  const selects = document.querySelectorAll('.meal-item-select');
+  const quantities = document.querySelectorAll('.meal-item-qty');
+  let total = 0;
+
+  selects.forEach((sel, idx) => {
+    const item = sel.value;
+    const qty = parseInt(quantities[idx].value) || 0;
+    if (item in itemsCalories) {
+      total += itemsCalories[item] * qty;
+    }
+  });
+
+  document.getElementById('total-calories').innerText = total;
+}
+
+// Attach events for all rows
+function attachChangeEvents() {
+  document.querySelectorAll('.meal-item-select, .meal-item-qty').forEach(el => {
+    el.onchange = calculateTotalCalories;
+    el.oninput = calculateTotalCalories;
+  });
+}
+
+// Initial attach
+attachChangeEvents();
+
+// Recalculate before submitting form
+document.getElementById('calorie-form').addEventListener('submit', () => {
+  calculateTotalCalories();
+});
+</script>
+{% endblock %}

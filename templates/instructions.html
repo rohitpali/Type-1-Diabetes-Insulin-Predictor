@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Instructions{% endblock %}
+{% block body_class %}welcome-page{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="card glass-card p-4">
+    <h2 class="h4 mb-3">Instructions</h2>
+    <ul class="list-group list-group-flush mb-3">
+      <li class="list-group-item"><i class="fa-solid fa-check text-success me-2"></i>Have your current glucose level ready.</li>
+      <li class="list-group-item"><i class="fa-solid fa-check text-success me-2"></i>Know your carbs (g/hr), ICR, ISF, weight.</li>
+      <li class="list-group-item"><i class="fa-solid fa-check text-success me-2"></i>If your meal is unclear, use the <strong>Meals</strong> page to estimate calories/carbs.</li>
+    </ul>
+    <a class="btn btn-outline-primary" href="{{ url_for('meals') }}"><i class="fa-solid fa-utensils me-2"></i>Go to Meal Page</a>
+  </div>
+</div>
+{% endblock %}
+    <div class="container d-flex align-items-center justify-content-center" style="min-height:70vh;">
+        <div class="card glass-card p-5 text-center">
+        <h1 class="display-6 text-primary mb-3">Welcome to Type-1 Diabetes Insulin Predictor</h1>
+        <p class="text-muted mb-4">Follow the chatbot (bottom-right) for a step-by-step guide.</p>
+        <div>
+            <a href="{{ url_for('signup') }}" class="btn btn-success btn-lg me-2"><i class="fa-solid fa-user-plus me-2"></i>Sign Up</a>
+            <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg"><i class="fa-solid fa-right-to-bracket me-2"></i>Login</a>
+        </div>
+        </div>
+    </div>

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Meals{% endblock %}
+{% block body_class %}meal-page{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <h2 class="h4 text-black mb-4">Select a Meal</h2>
+  <div class="row g-4">
+    {% for meal in ['Breakfast','Lunch','Snack','Dinner'] %}
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="card option-card text-center p-4">
+        <div class="display-6 mb-2">
+          {% if meal=='Breakfast' %}<i class="fa-solid fa-mug-saucer"></i>
+          {% elif meal=='Lunch' %}<i class="fa-solid fa-bowl-food"></i>
+          {% elif meal=='Snack' %}<i class="fa-solid fa-cookie-bite"></i>
+          {% else %}<i class="fa-solid fa-drumstick-bite"></i>{% endif %}
+        </div>
+        <h3 class="h5 mb-3">{{ meal }}</h3>
+        <a href="{{ url_for('calories', meal_type=meal) }}" class="btn btn-outline-primary">Select</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

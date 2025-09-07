@@ -1,0 +1,161 @@
+/* --- Base --- */
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Helvetica Neue", sans-serif;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Backgrounds per page */
+.welcome-page { background-image: url('../Images/bg_welcome.jpg'); }
+.login-page   { background-image: url('../Images/bg_login.jpg'); }
+.meal-page    { background-image: url('../Images/bg_meal.jpg'); }
+.predict-page { background-image: url('../Images/bg_predict.jpg'); }
+
+/* Frosted / glass card */
+.glass-card {
+  backdrop-filter: blur(6px);
+  background: rgba(255,255,255,0.85);
+  border: 1px solid rgba(255,255,255,0.6);
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+  transition: transform .2s ease;
+}
+.glass-card:hover {
+  transform: translateY(-3px);
+}
+
+/* Option cards on meals page */
+.option-card {
+  border-radius: 16px;
+  padding: 24px;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.option-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(0,0,0,.12);
+}
+
+/* Footer */
+.footer {
+  background: rgba(0,0,0,0.4);
+  color: white;
+  padding: 12px 0;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* Floating Chatbot Toggle Button */
+.chatbot-toggle {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+  background: #0d6efd;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.chatbot-toggle:hover {
+  background: #0b5ed7;
+  transform: scale(1.05);
+}
+
+/* Chatbot Panel */
+.chatbot-panel {
+  position: fixed;
+  right: 20px;
+  bottom: 85px;   /* toggle button ke upar */
+  width: 330px;
+  max-height: 60vh;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  display: none;
+  z-index: 1100;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Chatbot Header */
+#chatbot-header {
+  background: #0d6efd;
+  color: white;
+  padding: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Chatbot Body */
+#chatbot-body {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+  font-size: 14px;
+}
+
+/* Chatbot Messages */
+.chatbot-msg {
+  background: #f1f1f1;
+  padding: 8px 12px;
+  margin: 5px 0;
+  border-radius: 12px;
+  font-size: 14px;
+  max-width: 85%;
+  line-height: 1.4;
+}
+.chatbot-msg.user {
+  background: #d1e7dd;
+  align-self: flex-end;
+}
+
+/* Chatbot Footer */
+#chatbot-footer {
+  padding: 8px;
+  border-top: 1px solid #eee;
+  text-align: right;
+  background: #fafafa;
+}
+
+/* Chatbot Buttons */
+.chatbot-btn {
+  background: #0d6efd;
+  color: white;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  margin-left: 4px;
+}
+.chatbot-btn:hover {
+  background: #0b5ed7;
+}
+
+/* Loading overlay for prediction */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255,255,255,0.75);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  font-size: 1.05rem;
+}
+
+/* Small utilities */
+.hero-section .card { max-width: 760px; width: 100%; }
+.text-primary { color: #0d6efd !important; }
+.btn-primary { background-color: #0d6efd; border-color: #0d6efd; }
